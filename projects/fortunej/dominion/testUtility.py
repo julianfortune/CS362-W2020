@@ -91,3 +91,19 @@ def create_players(player_names):
             players.append(Dominion.Player(name))
 
     return players
+
+def score_game(players):
+    dcs=Dominion.cardsummaries(players)
+    vp=dcs.loc['VICTORY POINTS']
+    vpmax=vp.max()
+    winners=[]
+    for i in vp.index:
+        if vp.loc[i]==vpmax:
+            winners.append(i)
+    if len(winners)>1:
+        winstring= ' and '.join(winners) + ' win!'
+    else:
+        winstring = ' '.join([winners[0],'wins!'])
+
+    print("\nGAME OVER!!!\n"+winstring+"\n")
+    print(dcs)
